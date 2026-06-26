@@ -143,26 +143,6 @@
                 {{-- SIGN-IN BOX --}}
                 <div class="bg-white/95 backdrop-blur-xl border border-[#ecd991] rounded-[2rem] shadow-2xl p-7 sm:p-9">
 
-                    {{-- LOGIN HEADER INSIDE BOX --}}
-                    <div class="flex items-center gap-4 mb-8">
-                        <div class="w-16 h-16 rounded-2xl bg-[#fff3c4] shadow-lg flex items-center justify-center border border-[#ecd991]">
-                            <img
-                                src="{{ asset('images/optimis/dswd-logo.png') }}"
-                                alt="DSWD Logo"
-                                class="w-11 h-11 object-contain"
-                            >
-                        </div>
-
-                        <div>
-                            <p class="text-xs font-black uppercase tracking-[0.28em] text-[#9b5a05]">
-                                Secure Access
-                            </p>
-                            <h2 class="text-4xl font-black text-gray-900 leading-tight">
-                                LOGIN
-                            </h2>
-                        </div>
-                    </div>
-
                     @if (session('status'))
                         <div class="mb-5 rounded-xl bg-[#fff8e8] border border-[#ecd991] px-4 py-3 text-sm font-semibold text-[#6f3500]">
                             {{ session('status') }}
