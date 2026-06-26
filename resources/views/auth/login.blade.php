@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>OPTIMIS Login</title>
 
-    {{-- Use CDN to avoid Vite manifest error --}}
+    {{-- Temporary Tailwind CDN to avoid Vite manifest error --}}
     <script src="https://cdn.tailwindcss.com"></script>
 
-    {{-- If Vite is already working, you can use this instead --}}
+    {{-- Use this instead once Vite is working --}}
     {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -17,9 +17,10 @@
         :root {
             --optimis-dark: #5b2a00;
             --optimis-deep: #6f3500;
-            --optimis-brown: #9b5a05;
-            --optimis-brown-2: #b86e08;
-            --optimis-gold: #f4b21b;
+            --optimis-brown: #8b4300;
+            --optimis-brown-2: #a45a05;
+            --optimis-gold: #f4a900;
+            --optimis-gold-2: #ffbd1a;
             --optimis-cream: #fff8e8;
             --optimis-soft: #fff3c4;
             --optimis-border: #ecd991;
@@ -30,45 +31,47 @@
             background: var(--optimis-cream);
         }
 
-        .float-slow {
-            animation: floatSlow 6s ease-in-out infinite;
-        }
-
-        @keyframes floatSlow {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
         .left-brush {
             clip-path: polygon(
                 0 0,
                 94% 0,
                 90% 12%,
-                93% 28%,
-                89% 45%,
-                92% 63%,
-                88% 82%,
-                93% 100%,
+                94% 28%,
+                89% 47%,
+                93% 66%,
+                88% 84%,
+                94% 100%,
                 0 100%
             );
         }
 
-        .curve-divider {
+        .gold-divider {
             border-radius: 50% 50% 50% 50% / 45% 55% 55% 45%;
         }
 
-        .theme-pattern {
-            background-image:
-                radial-gradient(circle at 15% 15%, rgba(244, 178, 27, 0.22), transparent 28%),
-                radial-gradient(circle at 90% 75%, rgba(155, 90, 5, 0.14), transparent 30%);
+        .float-slow {
+            animation: floatSlow 6s ease-in-out infinite;
         }
 
-        .bg-optimis-gradient {
-            background: linear-gradient(135deg, #9b5a05 0%, #7b3f03 48%, #5b2a00 100%);
+        @keyframes floatSlow {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .login-bg {
+            background:
+                radial-gradient(circle at 85% 12%, rgba(244, 169, 0, 0.16), transparent 28%),
+                radial-gradient(circle at 18% 88%, rgba(139, 67, 0, 0.08), transparent 30%),
+                #ffffff;
         }
 
         .btn-optimis {
-            background: linear-gradient(90deg, #6f3500 0%, #9b5a05 48%, #f4b21b 100%);
+            background: linear-gradient(90deg, #8b4300 0%, #a45a05 45%, #f4a900 100%);
         }
 
         .btn-optimis:hover {
@@ -79,7 +82,7 @@
 
 <body class="min-h-screen overflow-hidden">
 
-    <div class="min-h-screen w-full grid grid-cols-1 lg:grid-cols-[48%_22%_30%] bg-[#fff8e8]">
+    <div class="min-h-screen grid grid-cols-1 lg:grid-cols-[47%_53%] bg-[#fff8e8]">
 
         {{-- LEFT IMAGE PANEL --}}
         <div class="hidden lg:block relative min-h-screen overflow-hidden bg-[#5b2a00]">
@@ -88,106 +91,80 @@
                 <img
                     src="{{ asset('images/optimis/operation-timbang-bg.png') }}"
                     alt="Operation Timbang Background"
-                    class="w-full h-full object-cover opacity-75"
-                    style="filter: sepia(35%) saturate(1.15) contrast(1.05);"
+                    class="w-full h-full object-cover"
+                    style="object-position: center; filter: sepia(25%) saturate(1.05) contrast(1.03);"
                 >
 
-                <div class="absolute inset-0 bg-gradient-to-r from-[#5b2a00]/80 via-[#9b5a05]/45 to-transparent"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-[#5b2a00]/60 via-[#8b4300]/20 to-transparent"></div>
             </div>
 
-            {{-- Top white/cream curve --}}
+            {{-- Top cream curve --}}
             <div class="absolute -top-28 -left-10 w-[115%] h-64 bg-[#fff8e8]/95 rounded-b-[55%]"></div>
 
             {{-- Bottom brown brush --}}
-            <div class="absolute -bottom-20 -left-20 w-[115%] h-72 bg-gradient-to-r from-[#5b2a00] via-[#7b3f03] to-[#9b5a05] rounded-tr-[75%]"></div>
+            <div class="absolute -bottom-24 -left-20 w-[115%] h-80 bg-gradient-to-r from-[#5b2a00] via-[#6f3500] to-[#8b4300] rounded-tr-[75%]"></div>
 
             {{-- Gold divider --}}
-            <div class="absolute -right-10 -top-10 h-[115%] w-24 bg-gradient-to-b from-[#f4b21b] via-[#c97a06] to-[#f4b21b] curve-divider shadow-2xl"></div>
+            <div class="absolute -right-8 -top-8 h-[115%] w-24 bg-gradient-to-b from-[#ffbd1a] via-[#d98700] to-[#f4a900] gold-divider shadow-2xl"></div>
 
-            {{-- Floating accent --}}
-            <div class="absolute top-28 left-16 w-28 h-28 rounded-full bg-[#f4b21b]/20 blur-2xl float-slow"></div>
-            <div class="absolute bottom-36 right-36 w-32 h-32 rounded-full bg-white/15 blur-3xl float-slow"></div>
+            {{-- Decorative soft glow --}}
+            <div class="absolute top-28 left-14 w-32 h-32 rounded-full bg-[#f4a900]/20 blur-3xl float-slow"></div>
+            <div class="absolute bottom-40 right-32 w-36 h-36 rounded-full bg-white/15 blur-3xl float-slow"></div>
         </div>
 
-        {{-- CENTER BRANDING PANEL --}}
-        <div class="hidden lg:flex relative min-h-screen items-center justify-center bg-[#fff8e8] theme-pattern overflow-hidden px-6">
+        {{-- RIGHT LOGIN AREA --}}
+        <div class="relative min-h-screen login-bg flex items-center justify-center px-6 py-10 sm:px-10 lg:px-14">
 
-            <div class="relative z-10 text-center w-full max-w-[330px]">
+            <div class="relative z-10 w-full max-w-[510px]">
 
-                <div class="mx-auto mb-8 w-28 h-28 rounded-full bg-white shadow-xl flex items-center justify-center border border-[#ecd991] float-slow">
-                    <img
-                        src="{{ asset('images/optimis/optimis-logo.png') }}"
-                        alt="OPTIMIS Logo"
-                        class="w-20 h-20 object-contain"
-                    >
-                </div>
-
-                <h1 class="text-5xl xl:text-6xl font-black tracking-tight text-[#8a4c04] leading-none">
-                    OPTIMIS
-                </h1>
-
-                <p class="mt-4 text-2xl font-black text-[#f4a700] leading-tight">
-                    Operation Timbang
-                </p>
-
-                <p class="mt-2 text-base xl:text-lg font-bold text-[#5b2a00] leading-snug">
-                    Monitoring Information System
-                </p>
-            </div>
-        </div>
-
-        {{-- RIGHT LOGIN PANEL --}}
-        <div class="relative min-h-screen flex items-center justify-center bg-white px-6 sm:px-10 lg:px-8 xl:px-12">
-
-            <div class="absolute top-10 right-10 w-32 h-32 rounded-full bg-[#f4b21b]/25 blur-3xl"></div>
-            <div class="absolute bottom-20 left-8 w-40 h-40 rounded-full bg-[#9b5a05]/10 blur-3xl"></div>
-
-            <div class="relative z-10 w-full max-w-[460px]">
-
-                {{-- MOBILE LOGO --}}
-                <div class="lg:hidden text-center mb-8">
-                    <div class="mx-auto mb-4 w-24 h-24 rounded-full bg-white shadow-lg flex items-center justify-center border border-[#ecd991]">
+                {{-- OPTIMIS BRANDING ABOVE SIGN-IN BOX --}}
+                <div class="text-center mb-8">
+                    <div class="mx-auto mb-5 w-28 h-28 rounded-full bg-white shadow-xl flex items-center justify-center border border-[#ecd991] float-slow">
                         <img
                             src="{{ asset('images/optimis/optimis-logo.png') }}"
                             alt="OPTIMIS Logo"
-                            class="w-16 h-16 object-contain"
+                            class="w-20 h-20 object-contain"
                         >
                     </div>
 
-                    <h1 class="text-4xl font-black text-[#8a4c04]">
+                    <h1 class="text-5xl sm:text-6xl font-black tracking-tight text-[#8b4300] leading-none">
                         OPTIMIS
                     </h1>
 
-                    <p class="mt-1 text-[#f4a700] font-bold">
-                        Operation Timbang Monitoring Information System
+                    <p class="mt-3 text-2xl font-black text-[#f4a900] leading-tight">
+                        Operation Timbang
+                    </p>
+
+                    <p class="mt-1 text-base sm:text-lg font-bold text-[#5b2a00]">
+                        Monitoring Information System
                     </p>
                 </div>
 
-                {{-- LOGIN HEADER --}}
-                <div class="flex items-center gap-4 mb-8">
-                    <div class="w-16 h-16 rounded-2xl bg-[#fff3c4] shadow-lg flex items-center justify-center border border-[#ecd991]">
-                        <img
-                            src="{{ asset('images/optimis/dswd-logo.png') }}"
-                            alt="DSWD Logo"
-                            class="w-11 h-11 object-contain"
-                        >
-                    </div>
+                {{-- SIGN-IN BOX --}}
+                <div class="bg-white/95 backdrop-blur-xl border border-[#ecd991] rounded-[2rem] shadow-2xl p-7 sm:p-9">
 
-                    <div>
-                        <p class="text-xs font-black uppercase tracking-[0.28em] text-[#9b5a05]">
-                            Secure Access
-                        </p>
-                        <h2 class="text-4xl font-black text-[#1f2937] leading-tight">
-                            LOGIN
-                        </h2>
-                    </div>
-                </div>
+                    {{-- LOGIN HEADER INSIDE BOX --}}
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-16 h-16 rounded-2xl bg-[#fff3c4] shadow-lg flex items-center justify-center border border-[#ecd991]">
+                            <img
+                                src="{{ asset('images/optimis/dswd-logo.png') }}"
+                                alt="DSWD Logo"
+                                class="w-11 h-11 object-contain"
+                            >
+                        </div>
 
-                {{-- LOGIN CARD --}}
-                <div class="bg-white/95 backdrop-blur-xl border border-[#f0dfaa] rounded-3xl shadow-2xl p-7 sm:p-8">
+                        <div>
+                            <p class="text-xs font-black uppercase tracking-[0.28em] text-[#9b5a05]">
+                                Secure Access
+                            </p>
+                            <h2 class="text-4xl font-black text-gray-900 leading-tight">
+                                LOGIN
+                            </h2>
+                        </div>
+                    </div>
 
                     @if (session('status'))
-                        <div class="mb-5 rounded-xl bg-[#fff8e8] border border-[#ecd991] px-4 py-3 text-sm font-medium text-[#6f3500]">
+                        <div class="mb-5 rounded-xl bg-[#fff8e8] border border-[#ecd991] px-4 py-3 text-sm font-semibold text-[#6f3500]">
                             {{ session('status') }}
                         </div>
                     @endif
@@ -210,7 +187,7 @@
                                 autofocus
                                 autocomplete="username"
                                 placeholder="Enter your username"
-                                class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3.5 text-gray-800 shadow-sm outline-none transition focus:border-[#b86e08] focus:ring-4 focus:ring-[#f4b21b]/20"
+                                class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3.5 text-gray-800 shadow-sm outline-none transition focus:border-[#a45a05] focus:ring-4 focus:ring-[#f4a900]/20"
                             >
 
                             @error('username')
@@ -232,13 +209,13 @@
                                     required
                                     autocomplete="current-password"
                                     placeholder="Enter your password"
-                                    class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3.5 pr-16 text-gray-800 shadow-sm outline-none transition focus:border-[#b86e08] focus:ring-4 focus:ring-[#f4b21b]/20"
+                                    class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3.5 pr-16 text-gray-800 shadow-sm outline-none transition focus:border-[#a45a05] focus:ring-4 focus:ring-[#f4a900]/20"
                                 >
 
                                 <button
                                     type="button"
                                     onclick="togglePassword()"
-                                    class="absolute inset-y-0 right-4 flex items-center text-xs font-black text-gray-400 hover:text-[#9b5a05]"
+                                    class="absolute inset-y-0 right-4 flex items-center text-xs font-black text-gray-400 hover:text-[#8b4300]"
                                 >
                                     <span id="eyeText">SHOW</span>
                                 </button>
@@ -255,7 +232,7 @@
                                 <input
                                     type="checkbox"
                                     name="remember"
-                                    class="rounded border-gray-300 text-[#9b5a05] shadow-sm focus:ring-[#f4b21b]"
+                                    class="rounded border-gray-300 text-[#8b4300] shadow-sm focus:ring-[#f4a900]"
                                 >
                                 <span class="text-sm text-gray-600">Remember me</span>
                             </label>
@@ -263,7 +240,7 @@
                             @if (Route::has('password.request'))
                                 <a
                                     href="{{ route('password.request') }}"
-                                    class="text-sm font-bold text-[#9b5a05] hover:text-[#f4a700]"
+                                    class="text-sm font-bold text-[#9b5a05] hover:text-[#f4a900]"
                                 >
                                     Forgot Password?
                                 </a>
@@ -281,7 +258,7 @@
                 </div>
 
                 {{-- Footer --}}
-                <div class="mt-8 border-t border-[#f0dfaa] pt-5 text-center">
+                <div class="mt-8 border-t border-[#ecd991] pt-5 text-center">
                     <p class="text-sm text-gray-400 leading-relaxed">
                         © {{ date('Y') }} OPTIMIS — Operation Timbang Monitoring Information System
                     </p>
