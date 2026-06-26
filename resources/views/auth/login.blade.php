@@ -1,277 +1,311 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OPTIMIS Login</title>
 
-@section('content')
+    {{-- Use CDN to avoid Vite manifest error --}}
+    <script src="https://cdn.tailwindcss.com"></script>
 
-<style>
-    @keyframes floatSoft {
-        0%, 100% { transform: translateY(0px) rotate(0deg); }
-        50% { transform: translateY(-18px) rotate(2deg); }
-    }
+    {{-- If Vite is already working, you can use this instead --}}
+    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
 
-    @keyframes pulseGlow {
-        0%, 100% { opacity: .45; transform: scale(1); }
-        50% { opacity: .8; transform: scale(1.08); }
-    }
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    @keyframes slideUp {
-        from {
-            opacity: 0;
-            transform: translateY(28px);
+    <style>
+        :root {
+            --optimis-dark: #5b2a00;
+            --optimis-deep: #6f3500;
+            --optimis-brown: #9b5a05;
+            --optimis-brown-2: #b86e08;
+            --optimis-gold: #f4b21b;
+            --optimis-cream: #fff8e8;
+            --optimis-soft: #fff3c4;
+            --optimis-border: #ecd991;
         }
-        to {
-            opacity: 1;
-            transform: translateY(0);
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--optimis-cream);
         }
-    }
 
-    @keyframes shimmer {
-        0% { background-position: -200% center; }
-        100% { background-position: 200% center; }
-    }
+        .float-slow {
+            animation: floatSlow 6s ease-in-out infinite;
+        }
 
-    .animate-float-soft {
-        animation: floatSoft 7s ease-in-out infinite;
-    }
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
 
-    .animate-pulse-glow {
-        animation: pulseGlow 5s ease-in-out infinite;
-    }
+        .left-brush {
+            clip-path: polygon(
+                0 0,
+                94% 0,
+                90% 12%,
+                93% 28%,
+                89% 45%,
+                92% 63%,
+                88% 82%,
+                93% 100%,
+                0 100%
+            );
+        }
 
-    .animate-slide-up {
-        animation: slideUp .75s ease-out both;
-    }
+        .curve-divider {
+            border-radius: 50% 50% 50% 50% / 45% 55% 55% 45%;
+        }
 
-    .glass-card {
-        background: rgba(255, 255, 255, 0.82);
-        backdrop-filter: blur(22px);
-        -webkit-backdrop-filter: blur(22px);
-    }
+        .theme-pattern {
+            background-image:
+                radial-gradient(circle at 15% 15%, rgba(244, 178, 27, 0.22), transparent 28%),
+                radial-gradient(circle at 90% 75%, rgba(155, 90, 5, 0.14), transparent 30%);
+        }
 
-    .gold-shimmer {
-        background-size: 200% auto;
-        animation: shimmer 4s linear infinite;
-    }
-</style>
+        .bg-optimis-gradient {
+            background: linear-gradient(135deg, #9b5a05 0%, #7b3f03 48%, #5b2a00 100%);
+        }
 
-<div class="relative min-h-screen overflow-hidden bg-[#fff8e6] flex items-center justify-center px-4 py-10">
+        .btn-optimis {
+            background: linear-gradient(90deg, #6f3500 0%, #9b5a05 48%, #f4b21b 100%);
+        }
 
-    {{-- Background Effects --}}
-    <div class="absolute inset-0 bg-gradient-to-br from-yellow-50 via-white to-yellow-200"></div>
+        .btn-optimis:hover {
+            filter: brightness(1.05);
+        }
+    </style>
+</head>
 
-    <div class="absolute -top-40 -left-40 w-96 h-96 rounded-full bg-yellow-300/30 blur-3xl animate-pulse-glow"></div>
-    <div class="absolute top-1/3 -right-40 w-[32rem] h-[32rem] rounded-full bg-amber-600/20 blur-3xl animate-pulse-glow"></div>
-    <div class="absolute -bottom-44 left-1/3 w-[34rem] h-[34rem] rounded-full bg-yellow-900/20 blur-3xl animate-pulse-glow"></div>
+<body class="min-h-screen overflow-hidden">
 
-    <div class="absolute inset-0 opacity-[0.08]"
-         style="background-image: linear-gradient(#8a5a00 1px, transparent 1px), linear-gradient(90deg, #8a5a00 1px, transparent 1px); background-size: 44px 44px;">
-    </div>
+    <div class="min-h-screen w-full grid grid-cols-1 lg:grid-cols-[48%_22%_30%] bg-[#fff8e8]">
 
-    {{-- Main Container --}}
-    <div class="relative z-10 w-full max-w-6xl grid grid-cols-1 lg:grid-cols-[1.05fr_.95fr] rounded-[2rem] overflow-hidden shadow-[0_30px_100px_rgba(120,70,0,.28)] border border-white/70 animate-slide-up">
+        {{-- LEFT IMAGE PANEL --}}
+        <div class="hidden lg:block relative min-h-screen overflow-hidden bg-[#5b2a00]">
 
-        {{-- Left Branding --}}
-        <div class="hidden lg:flex relative flex-col justify-between min-h-[680px] overflow-hidden bg-gradient-to-br from-yellow-700 via-yellow-900 to-stone-950 p-10 text-white">
+            <div class="absolute inset-0 left-brush">
+                <img
+                    src="{{ asset('images/optimis/operation-timbang-bg.png') }}"
+                    alt="Operation Timbang Background"
+                    class="w-full h-full object-cover opacity-75"
+                    style="filter: sepia(35%) saturate(1.15) contrast(1.05);"
+                >
 
-            {{-- Decorative Layers --}}
-            <div class="absolute inset-0 opacity-30"
-                 style="background-image: radial-gradient(circle at 20% 20%, rgba(255,255,255,.28), transparent 25%), radial-gradient(circle at 85% 15%, rgba(255,255,255,.18), transparent 28%), radial-gradient(circle at 50% 90%, rgba(255,214,10,.22), transparent 35%);">
+                <div class="absolute inset-0 bg-gradient-to-r from-[#5b2a00]/80 via-[#9b5a05]/45 to-transparent"></div>
             </div>
 
-            <div class="absolute -top-24 -right-20 w-80 h-80 bg-white/10 rounded-full blur-sm animate-float-soft"></div>
-            <div class="absolute -bottom-28 -left-24 w-96 h-96 bg-yellow-300/10 rounded-full blur-sm animate-float-soft" style="animation-delay: 1.2s;"></div>
+            {{-- Top white/cream curve --}}
+            <div class="absolute -top-28 -left-10 w-[115%] h-64 bg-[#fff8e8]/95 rounded-b-[55%]"></div>
 
-            <div class="relative z-10">
-                <div class="inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[.25em] text-yellow-100 shadow-lg">
-                    <span class="h-2 w-2 rounded-full bg-green-300 animate-pulse"></span>
-                    Child Nutrition Monitoring
-                </div>
+            {{-- Bottom brown brush --}}
+            <div class="absolute -bottom-20 -left-20 w-[115%] h-72 bg-gradient-to-r from-[#5b2a00] via-[#7b3f03] to-[#9b5a05] rounded-tr-[75%]"></div>
 
-                <div class="mt-14">
-                    <div class="w-24 h-24 rounded-[2rem] bg-white/15 border border-white/20 flex items-center justify-center mb-8 shadow-2xl animate-float-soft">
-                        <i class="fa-solid fa-scale-balanced text-5xl text-yellow-100"></i>
-                    </div>
+            {{-- Gold divider --}}
+            <div class="absolute -right-10 -top-10 h-[115%] w-24 bg-gradient-to-b from-[#f4b21b] via-[#c97a06] to-[#f4b21b] curve-divider shadow-2xl"></div>
 
-                    <h1 class="text-6xl font-black tracking-tight leading-none">
-                        OPTIMIS
-                    </h1>
-
-                    <div class="mt-4 h-1.5 w-28 rounded-full bg-gradient-to-r from-yellow-200 via-white to-yellow-500 gold-shimmer"></div>
-
-                    <p class="mt-7 max-w-md text-yellow-50/90 text-lg leading-relaxed">
-                        Operation Timbang Monitoring Information System for Barangay Child Nutrition Monitoring and Reporting.
-                    </p>
-                </div>
-            </div>
-
-            {{-- Feature Cards --}}
-            <div class="relative z-10 grid grid-cols-3 gap-4">
-                <div class="group rounded-3xl border border-white/15 bg-white/10 p-5 shadow-xl backdrop-blur-xl transition duration-300 hover:-translate-y-2 hover:bg-white/15">
-                    <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15">
-                        <i class="fa-solid fa-map-location-dot text-2xl text-yellow-100"></i>
-                    </div>
-                    <p class="text-xs font-semibold leading-relaxed text-yellow-50/90">
-                        Municipality & Barangay Records
-                    </p>
-                </div>
-
-                <div class="group rounded-3xl border border-white/15 bg-white/10 p-5 shadow-xl backdrop-blur-xl transition duration-300 hover:-translate-y-2 hover:bg-white/15">
-                    <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15">
-                        <i class="fa-solid fa-children text-2xl text-yellow-100"></i>
-                    </div>
-                    <p class="text-xs font-semibold leading-relaxed text-yellow-50/90">
-                        Child OPT Monitoring
-                    </p>
-                </div>
-
-                <div class="group rounded-3xl border border-white/15 bg-white/10 p-5 shadow-xl backdrop-blur-xl transition duration-300 hover:-translate-y-2 hover:bg-white/15">
-                    <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15">
-                        <i class="fa-solid fa-chart-pie text-2xl text-yellow-100"></i>
-                    </div>
-                    <p class="text-xs font-semibold leading-relaxed text-yellow-50/90">
-                        Monthly Nutrition Reports
-                    </p>
-                </div>
-            </div>
+            {{-- Floating accent --}}
+            <div class="absolute top-28 left-16 w-28 h-28 rounded-full bg-[#f4b21b]/20 blur-2xl float-slow"></div>
+            <div class="absolute bottom-36 right-36 w-32 h-32 rounded-full bg-white/15 blur-3xl float-slow"></div>
         </div>
 
-        {{-- Login Form --}}
-        <div class="glass-card relative p-7 sm:p-10 lg:p-14">
+        {{-- CENTER BRANDING PANEL --}}
+        <div class="hidden lg:flex relative min-h-screen items-center justify-center bg-[#fff8e8] theme-pattern overflow-hidden px-6">
 
-            {{-- Mobile Branding --}}
-            <div class="lg:hidden text-center mb-10 animate-slide-up">
-                <div class="mx-auto w-24 h-24 rounded-[2rem] bg-gradient-to-br from-yellow-600 via-yellow-800 to-yellow-950 text-white flex items-center justify-center mb-5 shadow-2xl">
-                    <i class="fa-solid fa-scale-balanced text-5xl"></i>
+            <div class="relative z-10 text-center w-full max-w-[330px]">
+
+                <div class="mx-auto mb-8 w-28 h-28 rounded-full bg-white shadow-xl flex items-center justify-center border border-[#ecd991] float-slow">
+                    <img
+                        src="{{ asset('images/optimis/optimis-logo.png') }}"
+                        alt="OPTIMIS Logo"
+                        class="w-20 h-20 object-contain"
+                    >
                 </div>
 
-                <h1 class="text-5xl font-black tracking-tight text-yellow-900">
+                <h1 class="text-5xl xl:text-6xl font-black tracking-tight text-[#8a4c04] leading-none">
                     OPTIMIS
                 </h1>
 
-                <p class="text-sm text-gray-500 mt-2">
-                    Operation Timbang Monitoring Information System
+                <p class="mt-4 text-2xl font-black text-[#f4a700] leading-tight">
+                    Operation Timbang
+                </p>
+
+                <p class="mt-2 text-base xl:text-lg font-bold text-[#5b2a00] leading-snug">
+                    Monitoring Information System
                 </p>
             </div>
+        </div>
 
-            {{-- Header --}}
-            <div class="mb-9 animate-slide-up" style="animation-delay: .08s;">
-                <div class="inline-flex items-center gap-2 rounded-full bg-yellow-100 px-4 py-2 text-xs font-black uppercase tracking-[.18em] text-yellow-800">
-                    <i class="fa-solid fa-right-to-bracket"></i>
-                    Welcome Back
-                </div>
+        {{-- RIGHT LOGIN PANEL --}}
+        <div class="relative min-h-screen flex items-center justify-center bg-white px-6 sm:px-10 lg:px-8 xl:px-12">
 
-                <h2 class="mt-5 text-4xl sm:text-5xl font-black tracking-tight text-gray-950">
-                    Sign in to your account
-                </h2>
+            <div class="absolute top-10 right-10 w-32 h-32 rounded-full bg-[#f4b21b]/25 blur-3xl"></div>
+            <div class="absolute bottom-20 left-8 w-40 h-40 rounded-full bg-[#9b5a05]/10 blur-3xl"></div>
 
-                <p class="mt-3 text-sm sm:text-base text-gray-500 leading-relaxed">
-                    Access your DSWD, BHW, or Parent dashboard securely.
-                </p>
-            </div>
+            <div class="relative z-10 w-full max-w-[460px]">
 
-            {{-- Error Alert --}}
-            @if($errors->any())
-                <div class="mb-6 rounded-3xl border border-red-200 bg-red-50 px-5 py-4 text-red-700 text-sm shadow-sm animate-slide-up">
-                    <div class="flex items-start gap-3">
-                        <i class="fa-solid fa-circle-exclamation mt-0.5"></i>
-                        <span>{{ $errors->first() }}</span>
-                    </div>
-                </div>
-            @endif
-
-            <form method="POST" action="{{ route('login.store') }}" class="space-y-6 animate-slide-up" style="animation-delay: .16s;">
-                @csrf
-
-                {{-- Username --}}
-                <div>
-                    <label class="mb-2 block text-sm font-black text-gray-700">
-                        Username
-                    </label>
-
-                    <div class="group relative">
-                        <span class="absolute inset-y-0 left-0 pl-5 flex items-center text-yellow-700 transition group-focus-within:text-yellow-900">
-                            <i class="fa-solid fa-user"></i>
-                        </span>
-
-                        <input type="text"
-                               name="username"
-                               value="{{ old('username') }}"
-                               required
-                               autofocus
-                               class="w-full rounded-3xl border border-yellow-100 bg-white/85 pl-14 pr-5 py-4 text-sm font-semibold text-gray-800 shadow-sm outline-none transition duration-300 placeholder:text-gray-400 focus:border-yellow-500 focus:bg-white focus:ring-4 focus:ring-yellow-300/30"
-                               placeholder="Enter your username">
-                    </div>
-                </div>
-
-                {{-- Password --}}
-                <div>
-                    <label class="mb-2 block text-sm font-black text-gray-700">
-                        Password
-                    </label>
-
-                    <div class="group relative">
-                        <span class="absolute inset-y-0 left-0 pl-5 flex items-center text-yellow-700 transition group-focus-within:text-yellow-900">
-                            <i class="fa-solid fa-lock"></i>
-                        </span>
-
-                        <input type="password"
-                               name="password"
-                               id="passwordInput"
-                               required
-                               class="w-full rounded-3xl border border-yellow-100 bg-white/85 pl-14 pr-14 py-4 text-sm font-semibold text-gray-800 shadow-sm outline-none transition duration-300 placeholder:text-gray-400 focus:border-yellow-500 focus:bg-white focus:ring-4 focus:ring-yellow-300/30"
-                               placeholder="Enter your password">
-
-                        <button type="button"
-                                onclick="togglePassword()"
-                                class="absolute inset-y-0 right-0 pr-5 flex items-center text-gray-400 transition hover:text-yellow-800">
-                            <i id="passwordIcon" class="fa-solid fa-eye"></i>
-                        </button>
-                    </div>
-                </div>
-
-                {{-- Submit --}}
-                <button type="submit"
-                        class="group relative w-full overflow-hidden rounded-3xl bg-gradient-to-r from-yellow-700 via-yellow-800 to-yellow-950 px-6 py-4 text-white font-black shadow-[0_18px_40px_rgba(146,93,0,.35)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_55px_rgba(146,93,0,.45)]">
-                    <span class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] transition duration-700 group-hover:translate-x-[100%]"></span>
-
-                    <span class="relative flex items-center justify-center gap-3">
-                        Login
-                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
-                    </span>
-                </button>
-            </form>
-
-            {{-- Footer Note --}}
-            <div class="mt-9 rounded-3xl border border-yellow-100 bg-yellow-50/70 px-5 py-4 text-sm text-gray-600 animate-slide-up" style="animation-delay: .24s;">
-                <div class="flex items-start gap-3">
-                    <div class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl bg-yellow-200 text-yellow-800">
-                        <i class="fa-solid fa-shield-halved"></i>
+                {{-- MOBILE LOGO --}}
+                <div class="lg:hidden text-center mb-8">
+                    <div class="mx-auto mb-4 w-24 h-24 rounded-full bg-white shadow-lg flex items-center justify-center border border-[#ecd991]">
+                        <img
+                            src="{{ asset('images/optimis/optimis-logo.png') }}"
+                            alt="OPTIMIS Logo"
+                            class="w-16 h-16 object-contain"
+                        >
                     </div>
 
-                    <p class="leading-relaxed">
-                        This system is intended for authorized users only. Please keep your login credentials secure.
+                    <h1 class="text-4xl font-black text-[#8a4c04]">
+                        OPTIMIS
+                    </h1>
+
+                    <p class="mt-1 text-[#f4a700] font-bold">
+                        Operation Timbang Monitoring Information System
                     </p>
                 </div>
+
+                {{-- LOGIN HEADER --}}
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-16 h-16 rounded-2xl bg-[#fff3c4] shadow-lg flex items-center justify-center border border-[#ecd991]">
+                        <img
+                            src="{{ asset('images/optimis/dswd-logo.png') }}"
+                            alt="DSWD Logo"
+                            class="w-11 h-11 object-contain"
+                        >
+                    </div>
+
+                    <div>
+                        <p class="text-xs font-black uppercase tracking-[0.28em] text-[#9b5a05]">
+                            Secure Access
+                        </p>
+                        <h2 class="text-4xl font-black text-[#1f2937] leading-tight">
+                            LOGIN
+                        </h2>
+                    </div>
+                </div>
+
+                {{-- LOGIN CARD --}}
+                <div class="bg-white/95 backdrop-blur-xl border border-[#f0dfaa] rounded-3xl shadow-2xl p-7 sm:p-8">
+
+                    @if (session('status'))
+                        <div class="mb-5 rounded-xl bg-[#fff8e8] border border-[#ecd991] px-4 py-3 text-sm font-medium text-[#6f3500]">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                    <form method="POST" action="{{ route('login') }}" class="space-y-5">
+                        @csrf
+
+                        {{-- Username --}}
+                        <div>
+                            <label for="username" class="block text-sm font-bold text-gray-700 mb-2">
+                                Username
+                            </label>
+
+                            <input
+                                id="username"
+                                type="text"
+                                name="username"
+                                value="{{ old('username') }}"
+                                required
+                                autofocus
+                                autocomplete="username"
+                                placeholder="Enter your username"
+                                class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3.5 text-gray-800 shadow-sm outline-none transition focus:border-[#b86e08] focus:ring-4 focus:ring-[#f4b21b]/20"
+                            >
+
+                            @error('username')
+                                <p class="mt-2 text-sm font-semibold text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        {{-- Password --}}
+                        <div>
+                            <label for="password" class="block text-sm font-bold text-gray-700 mb-2">
+                                Password
+                            </label>
+
+                            <div class="relative">
+                                <input
+                                    id="password"
+                                    type="password"
+                                    name="password"
+                                    required
+                                    autocomplete="current-password"
+                                    placeholder="Enter your password"
+                                    class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3.5 pr-16 text-gray-800 shadow-sm outline-none transition focus:border-[#b86e08] focus:ring-4 focus:ring-[#f4b21b]/20"
+                                >
+
+                                <button
+                                    type="button"
+                                    onclick="togglePassword()"
+                                    class="absolute inset-y-0 right-4 flex items-center text-xs font-black text-gray-400 hover:text-[#9b5a05]"
+                                >
+                                    <span id="eyeText">SHOW</span>
+                                </button>
+                            </div>
+
+                            @error('password')
+                                <p class="mt-2 text-sm font-semibold text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        {{-- Remember + Forgot --}}
+                        <div class="flex items-center justify-between gap-4">
+                            <label class="flex items-center gap-2">
+                                <input
+                                    type="checkbox"
+                                    name="remember"
+                                    class="rounded border-gray-300 text-[#9b5a05] shadow-sm focus:ring-[#f4b21b]"
+                                >
+                                <span class="text-sm text-gray-600">Remember me</span>
+                            </label>
+
+                            @if (Route::has('password.request'))
+                                <a
+                                    href="{{ route('password.request') }}"
+                                    class="text-sm font-bold text-[#9b5a05] hover:text-[#f4a700]"
+                                >
+                                    Forgot Password?
+                                </a>
+                            @endif
+                        </div>
+
+                        {{-- Submit --}}
+                        <button
+                            type="submit"
+                            class="btn-optimis w-full rounded-xl px-6 py-3.5 text-white font-black uppercase tracking-wide shadow-lg transition duration-300 hover:scale-[1.01] hover:shadow-xl"
+                        >
+                            Sign Me In
+                        </button>
+                    </form>
+                </div>
+
+                {{-- Footer --}}
+                <div class="mt-8 border-t border-[#f0dfaa] pt-5 text-center">
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        © {{ date('Y') }} OPTIMIS — Operation Timbang Monitoring Information System
+                    </p>
+                </div>
+
             </div>
-
         </div>
+
     </div>
-</div>
 
-<script>
-    function togglePassword() {
-        const input = document.getElementById('passwordInput');
-        const icon = document.getElementById('passwordIcon');
+    <script>
+        function togglePassword() {
+            const password = document.getElementById('password');
+            const eyeText = document.getElementById('eyeText');
 
-        if (input.type === 'password') {
-            input.type = 'text';
-            icon.classList.remove('fa-eye');
-            icon.classList.add('fa-eye-slash');
-        } else {
-            input.type = 'password';
-            icon.classList.remove('fa-eye-slash');
-            icon.classList.add('fa-eye');
+            if (password.type === 'password') {
+                password.type = 'text';
+                eyeText.textContent = 'HIDE';
+            } else {
+                password.type = 'password';
+                eyeText.textContent = 'SHOW';
+            }
         }
-    }
-</script>
+    </script>
 
-@endsection
+</body>
+</html>
