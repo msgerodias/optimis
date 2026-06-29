@@ -11,6 +11,10 @@
     {{-- Use this instead once Vite is working --}}
     {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
 
+    {{-- Font Awesome --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    {{-- Google Font --}}
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <style>
@@ -23,6 +27,7 @@
             --optimis-soft: #f3fbf8;
             --optimis-white: #ffffff;
             --optimis-text: #17364a;
+            --optimis-border: #d8f0e9;
         }
 
         * {
@@ -67,23 +72,6 @@
             }
         }
 
-        @keyframes slideArrow {
-            0% {
-                transform: translateX(-30%) translateY(10%) rotate(-5deg);
-                opacity: .55;
-            }
-
-            50% {
-                transform: translateX(0%) translateY(-4%) rotate(0deg);
-                opacity: .9;
-            }
-
-            100% {
-                transform: translateX(18%) translateY(-14%) rotate(4deg);
-                opacity: .65;
-            }
-        }
-
         .float-slow {
             animation: floatSlow 6s ease-in-out infinite;
         }
@@ -96,12 +84,8 @@
             animation: glowPulse 5s ease-in-out infinite;
         }
 
-        .arrow-motion {
-            animation: slideArrow 7s ease-in-out infinite alternate;
-        }
-
         .glass {
-            background: rgba(255, 255, 255, .84);
+            background: rgba(255, 255, 255, .88);
             backdrop-filter: blur(22px);
             -webkit-backdrop-filter: blur(22px);
         }
@@ -116,9 +100,9 @@
 
         .left-panel {
             background:
-                radial-gradient(circle at 18% 18%, rgba(255,255,255,.22), transparent 26%),
-                radial-gradient(circle at 78% 24%, rgba(247,168,50,.24), transparent 28%),
-                radial-gradient(circle at 50% 88%, rgba(114,199,176,.26), transparent 35%),
+                radial-gradient(circle at 18% 18%, rgba(255,255,255,.24), transparent 26%),
+                radial-gradient(circle at 82% 20%, rgba(247,168,50,.26), transparent 30%),
+                radial-gradient(circle at 50% 88%, rgba(156,207,138,.24), transparent 36%),
                 linear-gradient(145deg, #176895 0%, #2f8fc1 45%, #72c7b0 100%);
         }
 
@@ -128,6 +112,10 @@
                 linear-gradient(90deg, rgba(47,143,193,.08) 1px, transparent 1px);
             background-size: 42px 42px;
         }
+
+        .brand-title {
+            text-shadow: 0 14px 40px rgba(23, 104, 149, .25);
+        }
     </style>
 </head>
 
@@ -135,108 +123,82 @@
 
     <div class="relative min-h-screen bg-[#f3fbf8]">
 
-        {{-- Background --}}
+        {{-- Global Background --}}
         <div class="absolute inset-0 soft-grid"></div>
-
         <div class="absolute -top-40 -left-40 h-96 w-96 rounded-full bg-[#72c7b0]/30 blur-3xl glow-pulse"></div>
         <div class="absolute top-20 -right-36 h-[30rem] w-[30rem] rounded-full bg-[#2f8fc1]/20 blur-3xl glow-pulse"></div>
         <div class="absolute -bottom-44 left-1/3 h-[30rem] w-[30rem] rounded-full bg-[#f7a832]/20 blur-3xl glow-pulse"></div>
 
-        <div class="relative z-10 min-h-screen grid grid-cols-1 lg:grid-cols-[48%_52%]">
+        <div class="relative z-10 min-h-screen grid grid-cols-1 lg:grid-cols-[52%_48%]">
 
-            {{-- LEFT BRANDING PANEL --}}
+            {{-- LEFT BRANDING AREA --}}
             <div class="hidden lg:flex relative min-h-screen left-panel overflow-hidden items-center justify-center px-12 py-10 text-white">
 
-                {{-- Decorative Logo Style Circles --}}
-                <div class="absolute -top-28 -left-28 h-96 w-96 rounded-full border-[38px] border-white/15"></div>
-                <div class="absolute -bottom-24 -right-24 h-[28rem] w-[28rem] rounded-full border-[42px] border-[#f7a832]/35"></div>
+                {{-- Decorative Circles --}}
+                <div class="absolute -top-32 -left-32 h-[30rem] w-[30rem] rounded-full border-[44px] border-white/15"></div>
+                <div class="absolute -bottom-36 -right-36 h-[34rem] w-[34rem] rounded-full border-[48px] border-[#f7a832]/35"></div>
 
-                {{-- Animated Arrow --}}
-                <div class="absolute bottom-28 left-0 right-0 mx-auto w-[85%] h-28 rounded-full border-t-[18px] border-[#9ccf8a]/70 rotate-[-12deg] arrow-motion"></div>
-                <div class="absolute bottom-[13.5rem] right-24 w-0 h-0 border-l-[34px] border-l-[#9ccf8a]/80 border-y-[24px] border-y-transparent rotate-[-28deg] arrow-motion"></div>
+                {{-- Soft Glow --}}
+                <div class="absolute top-24 right-20 h-44 w-44 rounded-full bg-white/20 blur-3xl glow-pulse"></div>
+                <div class="absolute bottom-24 left-24 h-48 w-48 rounded-full bg-[#f7a832]/25 blur-3xl glow-pulse"></div>
 
-                <div class="relative z-10 max-w-xl fade-up">
-                    <div class="mt-12 rounded-[2rem] bg-white/15 border border-white/25 p-8 shadow-2xl backdrop-blur-xl float-slow">
-                        <div class="h-24 w-24 rounded-[2rem] bg-white flex items-center justify-center shadow-xl mb-7">
-                            <img
-                                src="{{ asset('images/optimis/optimis-logo.png') }}"
-                                alt="OPTIMIS Logo"
-                                class="h-20 w-20 object-contain"
-                            >
-                        </div>
+                {{-- Main Branding --}}
+                <div class="relative z-10 w-full max-w-2xl text-center fade-up">
 
-                        <h1 class="text-6xl font-black tracking-tight leading-none">
-                            OPTIMIS
-                        </h1>
-
-                        <p class="mt-5 text-2xl font-black leading-tight text-white">
-                            Tracking Growth, Saving Lives
-                        </p>
-
-                        <p class="mt-5 text-base leading-relaxed text-white/90">
-                            Optimizing Child Health through OPT Integrated Monitoring and Information System.
-                        </p>
+                    <div class="mx-auto mb-10 h-72 w-72 rounded-[3rem] bg-white shadow-[0_35px_90px_rgba(23,104,149,.35)] flex items-center justify-center border border-white/70 float-slow">
+                        <img
+                            src="{{ asset('images/optimis/optimis-logo.png') }}"
+                            alt="OPTIMIS Logo"
+                            class="h-64 w-64 object-contain"
+                        >
                     </div>
 
-                    <div class="mt-8 grid grid-cols-3 gap-4">
-                        <div class="rounded-3xl bg-white/15 border border-white/20 p-5 backdrop-blur-xl transition duration-300 hover:-translate-y-2 hover:bg-white/20">
-                            <i class="fa-solid fa-children text-3xl text-white"></i>
-                            <p class="mt-4 text-xs font-bold leading-relaxed text-white/90">
-                                Child Growth Tracking
-                            </p>
-                        </div>
+                    <h1 class="brand-title text-7xl xl:text-8xl font-black tracking-tight leading-none">
+                        OPTIMIS
+                    </h1>
 
-                        <div class="rounded-3xl bg-white/15 border border-white/20 p-5 backdrop-blur-xl transition duration-300 hover:-translate-y-2 hover:bg-white/20">
-                            <i class="fa-solid fa-shield-heart text-3xl text-white"></i>
-                            <p class="mt-4 text-xs font-bold leading-relaxed text-white/90">
-                                Health Status Monitoring
-                            </p>
-                        </div>
+                    <p class="mt-7 text-2xl xl:text-3xl font-black leading-tight text-white">
+                        Optimizing Child Health through OPT
+                    </p>
 
-                        <div class="rounded-3xl bg-white/15 border border-white/20 p-5 backdrop-blur-xl transition duration-300 hover:-translate-y-2 hover:bg-white/20">
-                            <i class="fa-solid fa-chart-line text-3xl text-white"></i>
-                            <p class="mt-4 text-xs font-bold leading-relaxed text-white/90">
-                                Barangay Reports
-                            </p>
-                        </div>
-                    </div>
+                    <p class="mt-2 text-xl xl:text-2xl font-bold text-white/95">
+                        Integrated Monitoring and Information System
+                    </p>
+
+                    <div class="mx-auto mt-8 h-1.5 w-32 rounded-full bg-gradient-to-r from-white via-[#f7a832] to-white"></div>
+
+                    <p class="mt-7 text-3xl xl:text-4xl font-black text-[#f7a832] drop-shadow-lg">
+                        Tracking Growth, Saving Lives
+                    </p>
+
                 </div>
             </div>
 
             {{-- RIGHT LOGIN AREA --}}
             <div class="relative min-h-screen flex items-center justify-center px-6 py-10 sm:px-10 lg:px-16">
 
-                <div class="relative z-10 w-full max-w-[560px] fade-up">
+                <div class="relative z-10 w-full max-w-[500px] fade-up">
 
-                    {{-- TOP BRANDING --}}
-                    <div class="text-center mb-8">
-
-                        <div class="mx-auto mb-5 h-36 w-36 rounded-[2rem] bg-white shadow-2xl flex items-center justify-center border border-[#d8f0e9] float-slow">
+                    {{-- Mobile Branding Only --}}
+                    <div class="lg:hidden text-center mb-8">
+                        <div class="mx-auto mb-5 h-32 w-32 rounded-[2rem] bg-white shadow-2xl flex items-center justify-center border border-[#d8f0e9]">
                             <img
                                 src="{{ asset('images/optimis/optimis-logo.png') }}"
                                 alt="OPTIMIS Logo"
-                                class="h-32 w-32 object-contain"
+                                class="h-28 w-28 object-contain"
                             >
                         </div>
 
-                        <h1 class="text-5xl sm:text-6xl font-black tracking-tight leading-none">
+                        <h1 class="text-5xl font-black tracking-tight leading-none">
                             <span class="text-[#2f8fc1]">OPTI</span><span class="text-[#72c7b0]">MIS</span>
                         </h1>
 
-                        <p class="mt-4 text-lg sm:text-xl font-black leading-tight text-[#176895]">
-                            Optimizing Child Health through OPT
-                        </p>
-
-                        <p class="mt-1 text-base sm:text-lg font-bold text-[#176895]">
-                            Integrated Monitoring and Information System
-                        </p>
-
-                        <p class="mt-3 text-lg sm:text-xl font-black text-[#f7a832]">
+                        <p class="mt-3 text-lg font-black text-[#f7a832]">
                             Tracking Growth, Saving Lives
                         </p>
                     </div>
 
-                    {{-- LOGIN BOX --}}
+                    {{-- LOGIN BOX ONLY --}}
                     <div class="glass rounded-[2rem] border border-white shadow-[0_25px_80px_rgba(47,143,193,.22)] p-7 sm:p-9">
 
                         <div class="mb-7">
@@ -368,13 +330,6 @@
                                 </span>
                             </button>
                         </form>
-                    </div>
-
-                    {{-- Footer --}}
-                    <div class="mt-7 text-center">
-                        <p class="text-sm text-gray-400 leading-relaxed">
-                            © {{ date('Y') }} OPTIMIS — Operation Timbang Monitoring Information System
-                        </p>
                     </div>
 
                 </div>
