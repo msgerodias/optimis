@@ -153,15 +153,12 @@
                         >
                     </div>
 
-                    <h1 class="brand-title text-7xl xl:text-8xl font-black tracking-tight leading-none">
+                    <h1 class="brand-title text-5xl xl:text-6xl font-black tracking-tight leading-none bg-gradient-to-r from-white via-[#fff2a8] to-[#f7d77a] bg-clip-text text-transparent">
                         OPTIMIS
                     </h1>
 
-                    <p class="mt-7 text-2xl xl:text-3xl font-black leading-tight text-white">
-                        Optimizing Child Health through OPT
-                    </p>
-
                     <p class="mt-2 text-xl xl:text-2xl font-bold text-white/95">
+                        Optimizing Child Health through OPT
                         Integrated Monitoring and Information System
                     </p>
 
